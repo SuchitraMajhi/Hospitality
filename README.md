@@ -13,10 +13,6 @@ The Hospitality Analytics Dashboard is a comprehensive data analysis project des
 3.Tableau
 4.SQL
 
-•	Use SQL for data extraction and management.
-•	Create interactive dashboards with Power BI and Tableau.
-•	Perform detailed analysis with Advanced Excel.
-
 **Key Performance Indicators (KPIs):**
 The dashboard analyzes the following KPIs to provide a comprehensive view of the hospitality business:
 
@@ -58,6 +54,7 @@ Recommendation: Focus marketing efforts on underperforming regions to increase m
 Some of SQL Queries used for solving KPI's
 
 1. KPI's 7(Weekday  & Weekend  Revenue and Booking)
+
 SELECT dd.day_type AS Day_Type,COUNT(fb.booking_id) AS Booking,
 CONCAT(FORMAT(SUM(fb.revenue_realized)/1000000, 0), ' M') AS Total_Revenue
 FROM fact_bookings fb
@@ -65,7 +62,8 @@ JOIN dim_date dd
 ON  dd.converted_date = fb.date_column
 GROUP BY dd.day_type;
 
-2. KPI's 8(Revenue by City & hotel)
+3. KPI's 8(Revenue by City & hotel)
+   
 SELECT dh.city As City,dh.property_name AS Hotel,
 CONCAT(FORMAT(SUM(fb.revenue_realized)/1000000, 0), ' M') AS Revenue
 FROM dim_hotels  dh
@@ -75,7 +73,8 @@ GROUP BY
 dh.city,
 dh.property_name;
 
-3. KPIs 11(Weekly trend Key trend (Revenue, Total booking, Occupancy)
+5. KPIs 11(Weekly trend Key trend (Revenue, Total booking, Occupancy)
+   
 SELECT dd.`week no` AS Week_No,
 COUNT(fb.booking_id) AS Booking,
 SUM( CASE 
@@ -87,7 +86,8 @@ JOIN fact_bookings fb
 ON dd.converted_date = fb.date_column
 GROUP BY dd.`week no`;
 
-5. KPI's 3(Cancellation Rate)
+7. KPI's 3(Cancellation Rate)
+   
  SELECT  dr.room_class AS Room_Class,
   CONCAT(FORMAT((SUM(CASE 
    WHEN fb.booking_status = 'Cancelled' THEN 1 ELSE 0 END) / COUNT(fb.booking_id)) * 100, 2), '%') AS Cancellation_Rate
